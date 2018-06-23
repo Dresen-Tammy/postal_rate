@@ -24,7 +24,7 @@ exports.calcResult = function(req,res) {
           case 'package':
               result = retailMail(query.weight);
         }
-        result =  "Price: $" + result;
+        result =  "Price: $" + result.toFixed(2);
         var answer = {answer: result}
         res.status(200)
            .json(answer);
@@ -33,7 +33,7 @@ exports.calcResult = function(req,res) {
       function stampedMail(weight) {
         
         if (weight <= 3) {
-          return ((Math.ceil(weight) - 1) * .21 + .50).toFixed(2);
+          return ((Math.ceil(weight) - 1) * .21 + .50);
         } else if (weight <= 3.5) {
           return 1.13;
         } else {
@@ -45,12 +45,12 @@ exports.calcResult = function(req,res) {
         if (weight > 3.5) {
           return flatMail(weight);
         } else {
-          return (stampedMail(weight) - .03).toFixed(2);
+          return (stampedMail(weight) - .03);
         }
       }
       
       function flatMail(weight) {
-          return ((Math.ceil(weight) - 1) * .21 + 1.00).toFixed(2);
+          return ((Math.ceil(weight) - 1) * .21 + 1.00);
       
       }
       
@@ -59,10 +59,8 @@ exports.calcResult = function(req,res) {
           return 3.50;
         } else if (weight <= 8) {
           return 3.75;
-        } else if (weight <= 13) {
-          return ((Math.ceil(weight) - 8) * .35 + 3.75).toFixed(2);
         } else {
-          return " - Error. Mail piece must be under 13 oz."
-        }
+          return ((Math.ceil(weight) - 8) * .35 + 3.75);
+        } 
       
 }
